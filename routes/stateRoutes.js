@@ -17,9 +17,7 @@ router.get('/:state/capital', verifyStates, (req, res) => {
     
     const stateData = statesData.find(state => state.code === stateCode);
     
-    if (!stateData) {
-        return res.status(404).json({ error: 'State not found' });
-    }
+   
     
     
     const capitalName = stateData.capital_city;
@@ -35,9 +33,7 @@ router.get('/:state/nickname', verifyStates, (req, res) => {
     
     const stateData = statesData.find(state => state.code === stateCode);
 
-    if (!stateData) {
-        return res.status(404).json({ error: 'State not found' });
-    }
+    
 
     
     const nickname = stateData.nickname;
@@ -53,9 +49,6 @@ router.get('/:state/population', verifyStates, (req, res) => {
     
     const stateData = statesData.find(state => state.code === stateCode);
 
-    if (!stateData) {
-        return res.status(404).json({ error: 'State not found' });
-    }
 
     
     const population = stateData.population;
@@ -71,9 +64,7 @@ router.get('/:state/admission', verifyStates, (req, res) => {
    
     const stateData = statesData.find(state => state.code === stateCode);
 
-    if (!stateData) {
-        return res.status(404).json({ error: 'State not found' });
-    }
+   
 
     
     const admissionDate = stateData.admission_date;

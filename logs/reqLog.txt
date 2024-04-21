@@ -388,3 +388,7 @@
 20240420	19:50:38	5eaef33d-96e6-4e70-b390-0e7dd73a739b	GET	undefined	/style.css
 20240420	19:50:38	eb2f7257-8c62-4d54-bf7d-47bd4a0e42cb	GET	undefined	/favicon.ico
 20240420	19:50:43	078faeb1-cb48-4fce-83c3-a90ddfeeb3b3	GET	undefined	/states/co/funfact
+20240421	11:50:11	bbc7093d-93d2-465f-a1ab-29844236af49	GET	undefined	/
+20240421	11:50:11	93a06327-4a8b-445c-b8ea-a6aaa07b7161	GET	undefined	/style.css
+20240421	11:50:11	b178400b-3826-49e0-80e4-000fd8ffc844	GET	undefined	/favicon.ico
+20240421	11:50:14	a93b5c2e-1d79-4498-963e-e3ddcb8e1b30	GET	undefined	/states
