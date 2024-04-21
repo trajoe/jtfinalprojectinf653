@@ -379,3 +379,12 @@
 20240420	19:04:30	f79a7fd9-e184-4ca7-a0ed-2fac9261783d	GET	undefined	/states/ne/funfact
 20240420	19:04:35	3d26a860-a6eb-4f46-a73b-30c19dd34e37	GET	undefined	/states/ne/
 20240420	19:19:57	e9eeed20-cab4-4431-835f-c6c2f515d5f0	GET	undefined	/states/GA/funfact
+20240420	19:39:55	c367f694-c748-4846-b3fd-cbd6b9a428f2	GET	undefined	/states/
+20240420	19:40:04	4e227026-86c4-48aa-ba3e-536390bdcef6	GET	undefined	/states/pA
+20240420	19:47:49	6ad8193a-1d17-4b3d-a1ed-885f038aaf21	POST	undefined	/states/co/funfact
+20240420	19:47:54	3da293b5-42b0-431d-950b-9397ec39b308	GET	undefined	/states/co/funfact
+20240420	19:48:10	56c73e16-951a-4c62-8640-182583e564b8	GET	undefined	/states/co/funfact
+20240420	19:50:37	0ce19765-9584-4042-86c3-0afcd991cb01	GET	undefined	/
+20240420	19:50:38	5eaef33d-96e6-4e70-b390-0e7dd73a739b	GET	undefined	/style.css
+20240420	19:50:38	eb2f7257-8c62-4d54-bf7d-47bd4a0e42cb	GET	undefined	/favicon.ico
+20240420	19:50:43	078faeb1-cb48-4fce-83c3-a90ddfeeb3b3	GET	undefined	/states/co/funfact
