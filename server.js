@@ -32,7 +32,7 @@ app.use((req, res, next) => {
     next();
 });
 
-//middlware
+//middleware
 app.use(logger);
 
 app.use(cors());
