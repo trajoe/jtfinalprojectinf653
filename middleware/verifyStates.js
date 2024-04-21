@@ -11,7 +11,7 @@ const verifyStates = (req, res, next) => {
   
     if (!stateCodes.includes(stateParameter)) {
        
-        return res.status(400).json({ error: "Invalid state abbreviation parameter" });
+        return res.status(400).json({ message: "Invalid state abbreviation parameter" });
     }
 
     
