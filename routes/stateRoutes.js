@@ -43,22 +43,26 @@ router.get('/:state/nickname', verifyStates, (req, res) => {
 });
 
     //population
-router.get('/:state/population', verifyStates, (req, res) => {
-    const stateCode = req.params.state.toUpperCase();
-
+    router.get('/:state/population', verifyStates, (req, res) => {
+        const stateCode = req.params.state.toUpperCase();
     
-    const stateData = statesData.find(state => state.code === stateCode);
-
-
+       
+        const stateData = statesData.find(state => state.code === stateCode);
     
-    const population = stateData.population;
-
+       
     
-    res.json({ state: stateData.state, population: population });
-});
+       
+        const population = stateData.population;
+    
+        
+        const populationWithCommas = population.toLocaleString();
+    
+        
+        res.json({ state: stateData.state, population: populationWithCommas });
+    });
 
     //admission
-router.get('/:state/admission', verifyStates, (req, res) => {
+    router.get('/:state/admission', verifyStates, (req, res) => {
     const stateCode = req.params.state.toUpperCase();
 
    
