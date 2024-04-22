@@ -24,8 +24,8 @@ exports.getState = async (req, res) => {
         let mergedStateData = { ...stateDataFromFile };
 
         
-        if (stateFromDB && stateFromDB.funFacts) {
-            mergedStateData.funFacts = stateFromDB.funFacts;
+        if (stateFromDB && stateFromDB.funfacts) {
+            mergedStateData.funfacts = stateFromDB.funfacts;
         }
 
         
@@ -43,7 +43,7 @@ exports.getRandomFunFact = async (req, res) => {
     try {
         
         const stateFromDB = await State.findOne({ stateCode });
-        if (!stateFromDB || !stateFromDB.funFacts || stateFromDB.funFacts.length === 0) {
+        if (!stateFromDB || !stateFromDB.funfacts || stateFromDB.funfacts.length === 0) {
             
             const stateDataFromFile = statesData.find(state => state.code === stateCode);
             const stateName = stateDataFromFile ? stateDataFromFile.state : stateCode;
@@ -51,8 +51,8 @@ exports.getRandomFunFact = async (req, res) => {
         }
 
         
-        const randomIndex = Math.floor(Math.random() * stateFromDB.funFacts.length);
-        const randomFunFact = stateFromDB.funFacts[randomIndex];
+        const randomIndex = Math.floor(Math.random() * stateFromDB.funfacts.length);
+        const randomFunFact = stateFromDB.funfacts[randomIndex];
 
         res.json({ funFact: randomFunFact });
     } catch (error) {
@@ -79,8 +79,8 @@ exports.getAllStates = async (req, res) => {
         const statesWithFunFacts = await Promise.all(statesToSend.map(async state => {
             const stateFromDB = await State.findOne({ stateCode: state.code });
            
-            if (stateFromDB && stateFromDB.funFacts) {
-                state.funFacts = stateFromDB.funFacts;
+            if (stateFromDB && stateFromDB.funfacts) {
+                state.funfacts = stateFromDB.funfacts;
             }
             
             return state;
@@ -108,18 +108,18 @@ exports.addFunFacts = async (req, res) => {
         }
 
         
-        const existingFunFacts = state.funFacts || [];
+        const existingFunFacts = state.funfacts || [];
 
         
         if (funfacts && funfacts.length > 0) {
-            state.funFacts = [...new Set([...existingFunFacts, ...funfacts])];
+            state.funfacts = [...new Set([...existingFunFacts, ...funfacts])];
         }
 
         
         await state.save();
 
         
-        res.json({ funFacts: state.funFacts });
+        res.json({ funfacts: state.funfacts });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
@@ -148,18 +148,18 @@ exports.updateFunFact = async (req, res) => {
         const adjustedIndex = parseInt(index) - 1;
 
         // Check if the provided index is valid
-        if (adjustedIndex < 0 || adjustedIndex >= stateFromDB.funFacts.length) {
+        if (adjustedIndex < 0 || adjustedIndex >= stateFromDB.funfacts.length) {
             return res.status(400).json({ error: 'Invalid index provided' });
         }
 
         // Update the fun fact at the specified index
-        stateFromDB.funFacts[adjustedIndex] = funfact;
+        stateFromDB.funfacts[adjustedIndex] = funfact;
 
         // Save the updated state data to MongoDB
         await stateFromDB.save();
 
         // Return the updated state data with fun facts
-        res.json({ state: stateCode, updatedFunFacts: stateFromDB.funFacts });
+        res.json({ state: stateCode, updatedFunFacts: stateFromDB.funfacts });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
@@ -187,18 +187,18 @@ exports.deleteFunFact = async (req, res) => {
         const adjustedIndex = parseInt(index) - 1;
 
        
-        if (adjustedIndex < 0 || adjustedIndex >= stateFromDB.funFacts.length) {
+        if (adjustedIndex < 0 || adjustedIndex >= stateFromDB.funfacts.length) {
             return res.status(400).json({ error: 'Invalid index provided' });
         }
 
        
-        stateFromDB.funFacts.splice(adjustedIndex, 1);
+        stateFromDB.funfacts.splice(adjustedIndex, 1);
 
        
         await stateFromDB.save();
 
         
-        res.json({ state: stateCode, updatedFunFacts: stateFromDB.funFacts });
+        res.json({ state: stateCode, updatedFunFacts: stateFromDB.funfacts });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
