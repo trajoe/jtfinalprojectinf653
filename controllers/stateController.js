@@ -94,43 +94,41 @@ exports.getAllStates = async (req, res) => {
 };
 
 
+
+
 exports.addFunFacts = async (req, res) => {
     const stateCode = req.params.state.toUpperCase(); 
     const { funfacts } = req.body;
 
     try {
         
-        stateCode = stateCode.toUpperCase();
+        if (!funfacts || !Array.isArray(funfacts)) {
+            return res.status(400).json({ message: 'State fun facts value must be an array' });
+        }
+
+
+        if (funfacts.length === 0) {
+            return res.status(400).json({ message: 'State fun facts value required' });
+        }
+       
         let state = await State.findOne({ stateCode });
 
+        
         if (!state) {
             state = new State({ stateCode });
         }
 
-        const existingFunFacts = state.funfacts || [];
-
-        if (funfacts === undefined || funfacts.length === 0) {
-            return res.status(400).json({ message: 'State fun facts value required' });
-        }
-
-        if (!Array.isArray(funfacts)) {
-            return res.status(400).json({ message: 'State fun facts value must be an array' });
-        }
-
-        if (stateCode === 'KS' && existingFunFacts.length > 0) {
-            return res.status(400).json({ message: 'Fun facts already exist for this state and cannot be overwritten' });
-        }
-
-        state.funfacts = [...new Set([...existingFunFacts, ...funfacts])];
+       
+        state.funfacts = [...new Set([...(state.funfacts || []), ...funfacts])];
         await state.save();
 
-        res.json({ funfacts: state.funfacts });
+        
+        res.json(state);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
 
 exports.updateFunFact = async (req, res) => {
     const stateCode = req.params.state.toUpperCase();
