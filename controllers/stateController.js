@@ -54,7 +54,7 @@ exports.getRandomFunFact = async (req, res) => {
         const randomIndex = Math.floor(Math.random() * stateFromDB.funfacts.length);
         const randomFunFact = stateFromDB.funfacts[randomIndex];
 
-        res.json({ funFact: randomFunFact });
+        res.json({ funfact: randomFunFact });
     } catch (error) {
         console.error(error);
         res.status(404).json({ error: 'Internal server error' });
@@ -102,7 +102,7 @@ exports.addFunFacts = async (req, res) => {
         
         let state = await State.findOne({ stateCode });
 
-        // If state not found, create a new document
+       
         if (!state) {
             state = new State({ stateCode });
         }
@@ -132,33 +132,33 @@ exports.updateFunFact = async (req, res) => {
     const { index, funfact } = req.body;
 
     try {
-        // Validate request body
+        
         if (!index || !funfact) {
             return res.status(400).json({ error: 'Missing index or funfact in request body' });
         }
 
-        // Query MongoDB to get state data including fun facts
+        
         const stateFromDB = await State.findOne({ stateCode });
 
         if (!stateFromDB) {
             return res.status(404).json({ error: 'State not found' });
         }
 
-        // Adjust index to zero-based
+       
         const adjustedIndex = parseInt(index) - 1;
 
-        // Check if the provided index is valid
+        
         if (adjustedIndex < 0 || adjustedIndex >= stateFromDB.funfacts.length) {
             return res.status(400).json({ error: 'Invalid index provided' });
         }
 
-        // Update the fun fact at the specified index
+        
         stateFromDB.funfacts[adjustedIndex] = funfact;
 
-        // Save the updated state data to MongoDB
+       
         await stateFromDB.save();
 
-        // Return the updated state data with fun facts
+       
         res.json({ state: stateCode, updatedFunFacts: stateFromDB.funfacts });
     } catch (error) {
         console.error(error);
