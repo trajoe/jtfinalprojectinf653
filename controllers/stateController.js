@@ -95,30 +95,33 @@ exports.getAllStates = async (req, res) => {
 
 
 exports.addFunFacts = async (req, res) => {
-    const stateCode = req.params.state.toLowerCase();
+    const stateCode = req.params.state.toUpperCase(); 
     const { funfacts } = req.body;
 
     try {
-        
         let state = await State.findOne({ stateCode });
 
-       
         if (!state) {
             state = new State({ stateCode });
         }
 
-        
         const existingFunFacts = state.funfacts || [];
 
-        
-        if (funfacts && funfacts.length > 0) {
-            state.funfacts = [...new Set([...existingFunFacts, ...funfacts])];
+        if (funfacts === undefined || funfacts.length === 0) {
+            return res.status(400).json({ message: 'State fun facts value required' });
         }
 
-        
+        if (!Array.isArray(funfacts)) {
+            return res.status(400).json({ message: 'State fun facts value must be an array' });
+        }
+
+        if (stateCode === 'KS' && existingFunFacts.length > 0) {
+            return res.status(400).json({ message: 'Fun facts already exist for this state and cannot be overwritten' });
+        }
+
+        state.funfacts = [...new Set([...existingFunFacts, ...funfacts])];
         await state.save();
 
-        
         res.json({ funfacts: state.funfacts });
     } catch (error) {
         console.error(error);
