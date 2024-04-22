@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getState, getAllStates, addFunFacts, getRandomFunFact} = require('../controllers/stateController');
+const { getState, getAllStates, addFunFacts, getRandomFunFact, updateFunFact, deleteFunFact} = require('../controllers/stateController');
 const verifyStates = require('../middleware/verifyStates');
 const statesData = require('../models/statesData.json');
 
@@ -8,7 +8,8 @@ router.get('/:state', verifyStates, getState);
 router.get('/', getAllStates);
 router.get('/:state/funfact', verifyStates, getRandomFunFact);
 router.post('/:state/funfact', verifyStates, addFunFacts);
-
+router.put('/:state/funfact', verifyStates, updateFunFact);
+router.delete('/:state/funfact', verifyStates, deleteFunFact);
 
     //capital
 router.get('/:state/capital', verifyStates, (req, res) => {

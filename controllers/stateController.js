@@ -99,7 +99,7 @@ exports.addFunFacts = async (req, res) => {
     const { funfacts } = req.body;
 
     try {
-        // Find the state in MongoDB
+        
         let state = await State.findOne({ stateCode });
 
         // If state not found, create a new document
@@ -107,18 +107,18 @@ exports.addFunFacts = async (req, res) => {
             state = new State({ stateCode });
         }
 
-        // Save the existing fun facts
+        
         const existingFunFacts = state.funFacts || [];
 
-        // Add the new fun facts to the state document
+        
         if (funfacts && funfacts.length > 0) {
             state.funFacts = [...new Set([...existingFunFacts, ...funfacts])];
         }
 
-        // Save the state document to MongoDB
+        
         await state.save();
 
-        // Send the response with the existing and new fun facts
+        
         res.json({ funFacts: state.funFacts });
     } catch (error) {
         console.error(error);
