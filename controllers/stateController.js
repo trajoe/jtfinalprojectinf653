@@ -99,6 +99,8 @@ exports.addFunFacts = async (req, res) => {
     const { funfacts } = req.body;
 
     try {
+        
+        stateCode = stateCode.toUpperCase();
         let state = await State.findOne({ stateCode });
 
         if (!state) {
