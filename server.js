@@ -55,10 +55,10 @@ app.use('/states', stateRoutes);
 
 
 
-//app.get('/states/:state', getState);
 
 
 
+// root index 
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
