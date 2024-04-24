@@ -66,11 +66,6 @@ app.get('/', (req, res) => {
 
 
 
-
-
-
-
-
 app.use((req, res, next) => {
     res.status(404);
     if (req.accepts('html')) {

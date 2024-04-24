@@ -132,61 +132,48 @@ exports.addFunFacts = async (req, res) => {
 
 
 
- exports.updateFunFact = async (req, res) => {
+exports.updateFunFact = async (req, res) => {
     const stateCode = req.params.state.toUpperCase();
     const { index, funfact } = req.body;
 
     try {
-        // Check if index is provided
-        if (!index) {
-            return res.status(400).json({ error: 'State fun fact index value required' });
+        // Check if index and funfact are provided
+        if (!index || !funfact) {
+            return res.status(400).json({ error: 'Index and funfact values are required' });
         }
 
-        // Check if funfact value is provided and is a string
-        if (!funfact || typeof funfact !== 'string') {
-            if (stateCode === 'CT') {
-                return res.status(400).json({ error: 'State fun fact value required' });
-            }
-            // Check if there are no funfacts for the specified state
-            if (stateCode === 'AZ') {
-                return res.status(400).json({ error: 'No Fun Facts found for ' + stateCode });
-            }
-            // Additional checks for other states can be added here if needed
-        }
+        // Convert index to zero-based
+        const adjustedIndex = parseInt(index) - 1;
 
         // Retrieve state from the database
         const stateFromDB = await State.findOne({ stateCode });
 
-        
+        // Check if state is found
         if (!stateFromDB) {
             return res.status(404).json({ error: 'State not found' });
         }
 
-       
-        const adjustedIndex = parseInt(index) - 1;
-
         // Check if adjusted index is valid
         if (adjustedIndex < 0 || adjustedIndex >= stateFromDB.funfacts.length) {
-            if (stateCode === 'KS') {
-                return res.status(400).json({ error: 'No Fun Fact found at that index for ' + stateCode });
-            }
-            
+            return res.status(400).json({ error: 'Invalid index value' });
         }
 
         // Update fun fact
         stateFromDB.funfacts[adjustedIndex] = funfact;
 
         // Save updated state
-        await stateFromDB.save();
+        const updatedState = await stateFromDB.save();
 
         // Return response with updated data
-        res.json({ state: stateCode, updatedFunFacts: stateFromDB.funfacts });
+        res.json({
+            state: stateCode,
+            updatedFunFacts: updatedState.funfacts
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
 
 
 
