@@ -20,7 +20,7 @@ exports.getState = async (req, res) => {
             return res.status(404).json({ error: 'State not found' });
         }
 
-        
+        //merge
         let mergedStateData = { ...stateDataFromFile };
 
         
@@ -166,41 +166,18 @@ exports.updateFunFact = async (req, res) => {
             return res.status(404).json({ message: `No Fun Fact found at that index for ${stateName}` });
         }
 
-        
+
         state.funfacts[adjustedIndex] = funfact;
 
         await state.save();
 
-        res.json({
-            state: state.name,
-            index: index,
-            funfact: funfact,
-            updatedFunFacts: state.funfacts
-        });
+       res.json(state);
+    
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 exports.deleteFunFact = async (req, res) => {
@@ -208,36 +185,37 @@ exports.deleteFunFact = async (req, res) => {
     const { index } = req.body;
 
     try {
-       
-        if (!index) {
-            return res.status(400).json({ error: 'Missing index in request body' });
+        if (!index){
+            return res.status(400).json ({message: 'State fun fact index value required' });
         }
-
-        
-        const stateFromDB = await State.findOne({ stateCode });
-
-        if (!stateFromDB) {
-            return res.status(404).json({ error: 'State not found' });
-        }
-
-        
+    
         const adjustedIndex = parseInt(index) - 1;
 
-       
-        if (adjustedIndex < 0 || adjustedIndex >= stateFromDB.funfacts.length) {
-            return res.status(400).json({ error: 'Invalid index provided' });
+        const state = await State.findOne({ stateCode });
+
+        if (!state || !state.funfacts || state.funfacts.length === 0) {
+            return res.status(404).json({ message: `No Fun Facts found for ${stateCode}` });
         }
 
-       
-        stateFromDB.funfacts.splice(adjustedIndex, 1);
+        if (adjustedIndex < 0 || adjustedIndex >= state.funfacts.length) {
+            return res.status(404).json({ message: `No Fun Fact found at that index for ${stateCode}` });
+        }
 
-       
-        await stateFromDB.save();
+        //filter elemeent 
+        state.funfacts = state.funfacts.filter((fact, i) => i !== adjustedIndex);
 
-        
-        res.json({ state: stateCode, updatedFunFacts: stateFromDB.funfacts });
+        await state.save();
+
+        res.json(state);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
+
 };
+
+
+
+
+
+
