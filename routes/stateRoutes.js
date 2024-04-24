@@ -20,14 +20,5 @@ router.delete('/:state/funfact', verifyStates, deleteFunFact);
 
 
 
-
-
-
-
-
-
-
-
-
 module.exports = router;
 

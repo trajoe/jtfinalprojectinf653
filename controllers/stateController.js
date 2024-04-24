@@ -86,7 +86,7 @@ exports.getRandomFunFact = async (req, res) => {
         res.json({ funfact: randomFunFact });
     } catch (error) {
         console.error(error);
-        res.status(404).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
