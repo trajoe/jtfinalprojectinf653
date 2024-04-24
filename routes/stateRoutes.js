@@ -8,7 +8,7 @@ router.get('/:state', verifyStates, getState);
 router.get('/', getAllStates);
 router.get('/:state/funfact', verifyStates, getRandomFunFact);
 router.post('/:state/funfact', verifyStates, addFunFacts);
-router.put('/:state/funfact', verifyStates, updateFunFact);
+router.patch('/:state/funfact', verifyStates, updateFunFact);
 router.delete('/:state/funfact', verifyStates, deleteFunFact);
 
     //capital
@@ -55,7 +55,7 @@ router.get('/:state/nickname', verifyStates, (req, res) => {
        
         const population = stateData.population;
     
-        
+        // commas for number places
         const populationWithCommas = population.toLocaleString();
     
         

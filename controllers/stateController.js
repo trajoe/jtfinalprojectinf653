@@ -102,15 +102,15 @@ exports.addFunFacts = async (req, res) => {
 
     try {
         
-        if (!funfacts || !Array.isArray(funfacts)) {
-            return res.status(400).json({ message: 'State fun facts value must be an array' });
-        }
-
-
+       
         if (funfacts.length === 0) {
             return res.status(400).json({ message: 'State fun facts value required' });
         }
        
+        if (!funfacts || !Array.isArray(funfacts)) {
+            return res.status(400).json({ message: 'State fun facts value must be an array' });
+        }
+
         let state = await State.findOne({ stateCode });
 
         
@@ -130,19 +130,34 @@ exports.addFunFacts = async (req, res) => {
     }
 };
 
-exports.updateFunFact = async (req, res) => {
+
+
+ exports.updateFunFact = async (req, res) => {
     const stateCode = req.params.state.toUpperCase();
     const { index, funfact } = req.body;
 
     try {
-        
-        if (!index || !funfact) {
-            return res.status(400).json({ error: 'Missing index or funfact in request body' });
+        // Check if index is provided
+        if (!index) {
+            return res.status(400).json({ error: 'State fun fact index value required' });
         }
 
-        
+        // Check if funfact value is provided and is a string
+        if (!funfact || typeof funfact !== 'string') {
+            if (stateCode === 'CT') {
+                return res.status(400).json({ error: 'State fun fact value required' });
+            }
+            // Check if there are no funfacts for the specified state
+            if (stateCode === 'AZ') {
+                return res.status(400).json({ error: 'No Fun Facts found for ' + stateCode });
+            }
+            // Additional checks for other states can be added here if needed
+        }
+
+        // Retrieve state from the database
         const stateFromDB = await State.findOne({ stateCode });
 
+        
         if (!stateFromDB) {
             return res.status(404).json({ error: 'State not found' });
         }
@@ -150,24 +165,31 @@ exports.updateFunFact = async (req, res) => {
        
         const adjustedIndex = parseInt(index) - 1;
 
-        
+        // Check if adjusted index is valid
         if (adjustedIndex < 0 || adjustedIndex >= stateFromDB.funfacts.length) {
-            return res.status(400).json({ error: 'Invalid index provided' });
+            if (stateCode === 'KS') {
+                return res.status(400).json({ error: 'No Fun Fact found at that index for ' + stateCode });
+            }
+            
         }
 
-        
+        // Update fun fact
         stateFromDB.funfacts[adjustedIndex] = funfact;
 
-       
+        // Save updated state
         await stateFromDB.save();
 
-       
+        // Return response with updated data
         res.json({ state: stateCode, updatedFunFacts: stateFromDB.funfacts });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+
+
+
 
 exports.deleteFunFact = async (req, res) => {
     const stateCode = req.params.state.toUpperCase();

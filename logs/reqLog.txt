@@ -428,3 +428,9 @@
 20240422	01:01:53	e59b17f9-4a18-4ffa-af87-8299c19379d7	POST	undefined	/states/Or/funfact
 20240422	01:03:34	967866d3-de3d-45ad-91e9-ae8775476b0e	POST	undefined	/states/Or/funfact
 20240422	01:03:41	2858ae28-3485-4d28-b195-ad8cdb77ae8e	POST	undefined	/states/Or/funfact
+20240422	12:18:38	860a4df4-ca1b-42c1-bbc9-890b93c6934c	POST	undefined	/states/TX/funfact
+20240422	12:19:44	27fe9bf0-a373-4e24-b517-ab15be689aa1	POST	undefined	/states/TX/funfact
+20240422	14:18:32	79fb0269-b6da-40c5-b5ce-a4a0e93ef256	POST	undefined	/states/TX/funfact
+20240422	14:18:38	e48a8b20-d885-4fd2-b60d-eefed80885af	POST	undefined	/states/TX/funfact
+20240422	14:18:47	6eeb6e6e-2a4d-4186-a543-4dd5b4e10b4d	POST	undefined	/states/TX/funfact
+20240422	14:18:53	f03b6a89-668d-458b-885d-5d9f7c6c749e	POST	undefined	/states/TX/funfact
