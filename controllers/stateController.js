@@ -4,6 +4,35 @@ const fs = require('fs');
 const path = require('path');
 const verifyStates = require('../middleware/verifyStates');
 
+exports.getCapital = (req,res) => {
+const stateCode = req.params.state.toUpperCase();
+const stateData = statesData.find(state => state.code === stateCode);
+const capitalName = stateData.capital_city;
+
+res.json({state: stateData.state, capital: capitalName});
+};
+
+exports.getNickname = (req, res) => {
+    const stateCode = req.params.state.toUpperCase();
+    const stateData = statesData.find(state => state.code === stateCode);
+    const nickname = stateData.nickname;
+    res.json ({state: stateData.state, nickname: nickname});
+};
+
+exports.getPopulation = (req, res) => {
+    const stateCode = req.params.state.toUpperCase();
+    const stateData = statesData.find(state => state.code === stateCode);
+    const population = stateData.population; 
+    const populationWithCommas = population.toLocaleString();
+    res.json ({state: stateData.state, population: populationWithCommas});
+};
+
+exports.getAdmission = (req, res) => {
+    const stateCode = req.params.state.toUpperCase();
+    const stateData = statesData.find(state => state.code ===stateCode);
+    const admissionDate = stateData.admission_date;
+    res.json({state: stateData.state, admitted: admissionDate});
+};
 
 
 exports.getState = async (req, res) => {
