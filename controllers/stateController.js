@@ -194,11 +194,15 @@ exports.deleteFunFact = async (req, res) => {
         const state = await State.findOne({ stateCode });
 
         if (!state || !state.funfacts || state.funfacts.length === 0) {
-            return res.status(404).json({ message: `No Fun Facts found for ${stateCode}` });
+            const stateDataFromFile = statesData.find(state => state.code === stateCode);
+            const stateName = stateDataFromFile ? stateDataFromFile.state : stateCode;
+            return res.status(404).json({ message: `No Fun Facts found for ${stateName}` });
         }
 
         if (adjustedIndex < 0 || adjustedIndex >= state.funfacts.length) {
-            return res.status(404).json({ message: `No Fun Fact found at that index for ${stateCode}` });
+            const stateDataFromFile = statesData.find(state => state.code === stateCode);
+            const stateName = stateDataFromFile ? stateDataFromFile.state : stateCode;
+            return res.status(404).json({ message: `No Fun Fact found at that index for ${stateName}` });
         }
 
         //filter elemeent 

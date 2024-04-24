@@ -468,3 +468,7 @@
 20240424	14:35:48	625f6ff4-b096-4dd5-b61e-3780ec289158	POST	undefined	/states/NE/funfact
 20240424	14:36:00	1e2d4eb6-703a-4fc2-ae9f-8a94fe7b6c9b	POST	undefined	/states/NE/funfact
 20240424	14:36:35	dc68eecc-ceac-4876-9de0-00e27de29d74	DELETE	undefined	/states/NE/funfact
+20240424	14:41:20	ff19cff3-2443-453b-bbd1-20afd4ced8c5	DELETE	undefined	/states/MT/funfact
+20240424	14:41:30	c641978b-37dc-47e7-970e-259223da25ce	DELETE	undefined	/states/MT/funfact
+20240424	14:41:46	56e13eab-4bd9-453c-9eb8-4f8c2166a753	DELETE	undefined	/states/MT/funfact
+20240424	14:42:00	a17ead53-37c3-4724-990a-b0dc0aff8be1	DELETE	undefined	/states/KS/funfact
