@@ -102,8 +102,8 @@ exports.addFunFacts = async (req, res) => {
 
     try {
         
-       
-        if (funfacts.length === 0) {
+        //check if fun facts Array is false / empty
+        if (!funfacts || funfacts.length === 0) {
             return res.status(400).json({ message: 'State fun facts value required' });
         }
        
@@ -137,34 +137,34 @@ exports.updateFunFact = async (req, res) => {
     const { index, funfact } = req.body;
 
     try {
-        // Check if index and funfact are provided
+        
         if (!index || !funfact) {
             return res.status(400).json({ error: 'Index and funfact values are required' });
         }
 
-        // Convert index to zero-based
+        
         const adjustedIndex = parseInt(index) - 1;
 
-        // Retrieve state from the database
+        
         const stateFromDB = await State.findOne({ stateCode });
 
-        // Check if state is found
+       
         if (!stateFromDB) {
             return res.status(404).json({ error: 'State not found' });
         }
 
-        // Check if adjusted index is valid
+        
         if (adjustedIndex < 0 || adjustedIndex >= stateFromDB.funfacts.length) {
             return res.status(400).json({ error: 'Invalid index value' });
         }
 
-        // Update fun fact
+       
         stateFromDB.funfacts[adjustedIndex] = funfact;
 
-        // Save updated state
+        
         const updatedState = await stateFromDB.save();
 
-        // Return response with updated data
+       
         res.json({
             state: stateCode,
             updatedFunFacts: updatedState.funfacts
